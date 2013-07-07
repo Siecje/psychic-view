@@ -1,0 +1,10 @@
+*.pyc
+*.py~
+*.txt~
+*.html~
+*.css~
+*.rst~
+.coverage
+htmlcov/
+logs/logfile
+database/mysite.db

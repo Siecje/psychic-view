@@ -1,0 +1,66 @@
+Tests
+test that a future poll can not be shown on detail view (and index view)
+test that a poll has at least two choices before shown (but don't want to make that a requirement for creation in case you think of a poll question but don't have choices yet)
+
+multiple answer poll Which products have you purchased or do you own. so that is for 1 - all
+is there a 1-2 or only 2 use case?
+max_answers is a drop down with 1 to n-1 and "all" in admin
+
+allow vistors to create polls (but not future polls)
+
+Comments success page needs to be self.link :)
+
+Future
+add comments to a poll? django's comments ?
+
+Design
+draw progress bar with percents of each choice
+flashy vote checkbox animation
+
+Templates
+show results link on poll page
+previous and next for polls? poll playlists?
+display block tag - have a tempalte tag that you can say but the poll here with this size and you style it with divs
+
+results view works fine without mixin? Why is it passing all the tests
+
+also needed tests for choices count above 1
+
+not sure why that didn't get caught sooner but goes to show 100% coverage doesn't mean much in fact we have some bugs now :)
+
+max_number
+#TODO: not allowed to be zero or negetive
+#TODO: reuse in another app (blog)
+#TODO: I am testing with my own views, testing views? or
+
+coverage html can also show where tests stopped
+
+used for radio and checkbox tests
+    #to see what form data looks like
+    #(InteractiveConsole)
+    #>>> from django.test.utils import setup_test_environment
+    #>>> setup_test_environment()
+    #>>> from django.test.client import Client
+    #>>> client = Client()
+    #>>> from django.core.urlresolvers import reverse
+    #>>> from polls.models import Poll, Choice
+    #>>> from django.utils import timezone
+    #>>> multi_answer_poll = Poll.objects.create(question="Can you submit more than one answer", pub_date=timezone.now(), max_answers=2)
+    #>>> choice1 = Choice.objects.create(choice_text="One", poll=multi_answer_poll)
+    #>>> choice2 = Choice.objects.create(choice_text="Two", poll=multi_answer_poll)
+    #>>> choice3 = Choice.objects.create(choice_text="Three", poll=multi_answer_poll)
+    #>>> response = client.get(reverse('polls:detail', args=(multi_answer_poll.id,)))
+    #>>> form = response.context['form']
+    #>>> print form
+    #<tr><th><label for="id_choice_0">Choice:</label></th><td><ul>
+    #<li><label for="id_choice_0"><input id="id_choice_0" name="choice" type="checkbox" value="10" /> One</label></li>
+    #<li><label for="id_choice_1"><input id="id_choice_1" name="choice" type="checkbox" value="11" /> Two</label></li>
+    #<li><label for="id_choice_2"><input id="id_choice_2" name="choice" type="checkbox" value="12" /> Three</label></li>
+    #</ul></td></tr>
+
+
+
+
+----------------------------------------
+coverage run --source='.' manage.py test polls
+coverage html

@@ -1,0 +1,97 @@
+<h1>{{ poll.question }}</h1>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form method="post">
+{% csrf_token %}
+  {{form}}
+<input type="submit" value="Vote" />
+</form>
+{%comment%}
+<script>
+  var checkboxes = document.getElementsByName("choice");
+  var limit = {{poll.max_answers}};
+  var count = 0;
+  for (var h =0;h<checkboxes.length; h++){
+    checkboxes[h].onchange = function(){
+      // about to become checked
+      if (this.checked) {
+        if (count === limit) {
+          return false;
+        }
+        else {
+          count++;
+          if (count === limit) {
+            for(var i = 0; i < checkboxes.length; i++) {
+              var checkbox = checkboxes[i];
+              if (!checkbox.checked) {
+                checkbox.disabled=true;
+              }
+            }
+          }
+        }
+      }
+      else {
+        if (count === limit) {
+          for(var i = 0; i < checkboxes.length; i++) {
+            var checkbox = checkboxes[i];
+            checkbox.disabled=false;
+          }
+        }
+        count--;
+      }
+    }
+  }
+</script>
+{%endcomment%}
+{%comment%}
+<script>
+  /* choice is the name of the django form field */
+  var checkboxes = document.getElementsByName("choice");
+  var limit = {{poll.max_answers}};
+  var count = 0;
+  for (var h =0;h<checkboxes.length; h++){
+    checkboxes[h].onclick = function(){
+      count = 0;
+      /* count the number of selected checkboxes */
+      for (var i=0; i<checkboxes.length; i++){
+        if (checkboxes[i].checked) {
+          count ++;
+        }
+      }
+      /* If the max number is selected disabled other checkboxes */
+      if (count >= limit){
+        for (var i=0; i<checkboxes.length; i++){
+          if (!checkboxes[i].checked){
+            checkboxes[i].disabled = true;
+          }
+        }
+      }
+      /* Otherwise set them to available */
+      else {
+        for (var i=0; i<checkboxes.length; i++){
+          checkboxes[i].disabled = false;
+        }
+      }
+    }
+  }
+</script>
+{%endcomment%}
+{%comment%}
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script>
+$("input:checkbox").click(function() {
+
+  var bol = $("input:checkbox:checked").length >= {{poll.max_answers}};
+  $("input:checkbox").not(":checked").attr("disabled",bol);
+
+});
+</script>
+{%endcomment%}
+

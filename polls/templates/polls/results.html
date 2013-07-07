@@ -1,0 +1,18 @@
+{% load comments %}
+<h1>{{ poll.question }}</h1>
+
+<ul>
+{% for choice in poll.choices.all %}
+    <li>{{ choice.choices }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'polls:detail' poll.id %}">Vote again?</a>
+
+{% get_comment_count for poll as comment_count %}
+
+{% render_comment_list for poll %}
+
+{% render_comment_form for poll %}
+
+
